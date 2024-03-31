@@ -10,6 +10,7 @@ const WorkoutForm = () => {
         e.preventDefault();
 
         const workout = { title, load, reps };
+        console.log('workout:', workout);
         const response = await fetch("/api/workouts", {
             method: "POST",
             body: JSON.stringify(workout),
@@ -46,18 +47,19 @@ const WorkoutForm = () => {
             <label>Load (in kg): </label>
             <input
                 type="number"
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => setLoad(e.target.value)}
                 value={load}
             />
 
             <label>Reps: </label>
             <input
                 type="number"
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => setReps(e.target.value)}
                 value={reps}
             />
 
             <button>Add Workout</button>
+            {error && <div className="error">{error}</div>}
         </form>
     );
 };
