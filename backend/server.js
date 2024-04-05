@@ -5,13 +5,14 @@ const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const workoutRoutes = require("./routes/workouts");
+const userRoutes = require("./routes/user");
 
 dotenv.config();
 
 // middlewares
 app.use(express.json());
 app.use((req, res, next) => {
-    console.log(req.path, req.method);
+    // console.log(req.path, req.method);
     next();
 });
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/workouts", workoutRoutes);
+app.use("/api/user", userRoutes);
 
 // connect to db
 mongoose
@@ -28,7 +30,9 @@ mongoose
     .then(() => {
         // lisren for requests
         app.listen(process.env.PORT, () => {
-            console.log(`connectes to db & listening on port ${process.env.PORT}`);
+            console.log(
+                `connectes to db & listening on port ${process.env.PORT}`
+            );
         });
     })
     .catch((error) => {
